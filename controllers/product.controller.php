@@ -36,7 +36,7 @@ class ProductoController {
             Toast::info('⚠️ERROR AL CREAR EL PRODUCTO'); //AZUL
         }
 
-        header("Location: index.php"); // REDIRIGE A LA MISMA VISTA
+        header("Location: index.php?page=productos"); // REDIRIGE A LA MISMA VISTA
         exit;
     }
 
@@ -59,7 +59,7 @@ class ProductoController {
             Toast::info('⚠️ERROR AL ACTUALIZAR EL PRODUCTO'); //AZUL
         }
 
-        header("Location: index.php"); // REDIRIGE A LA MISMA VISTA
+        header("Location: index.php?page=productos"); // REDIRIGE A LA MISMA VISTA
         exit;
     }
 
@@ -75,8 +75,30 @@ class ProductoController {
             Toast::info('⚠️ERROR AL ELIMINAR EL PRODUCTO');//AZUL
         }
 
-        header("Location: index.php"); // REDIRIGE A LA MISMA VISTA
+        header("Location: index.php?page=productos"); // REDIRIGE A LA MISMA VISTA
         exit;
+    }
+
+    public function handleRequest() {
+        // ESTE ES EL "CEREBRO"
+
+        if (isset($_POST['create'])) {
+            $this->store($_POST);
+            return;
+        }
+
+        if (isset($_POST['update']) && isset($_POST['id'])) {
+            $this->update($_POST['id'], $_POST);
+            return;
+        }
+
+        if (isset($_POST['delete']) && isset($_POST['id'])) {
+            $this->delete($_POST['id']);
+            return;
+        }
+
+        // Por defecto, mostrar la vista
+        $this->index();
     }
 }
 ?>

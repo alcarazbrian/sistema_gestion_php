@@ -49,7 +49,7 @@
                 <div class="modal fade" id="modalEditar<?= $p['id'] ?>" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form action="index.php" method="POST">
+                            <form action="index.php?page=productos" method="POST">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Editar Producto</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -94,7 +94,7 @@
                 <div class="modal fade" id="modalEliminar<?= $p['id'] ?>" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
-                            <form action="index.php?action=delete&id=<?= $p['id'] ?>" method="POST">
+                            <form action="index.php?page=productos" method="POST">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Confirmar eliminación</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -122,7 +122,7 @@
 <div class="modal fade" id="modalCrear" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="index.php" method="POST">
+            <form action="index.php?page=productos" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title">Nuevo Producto</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
