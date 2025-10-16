@@ -5,7 +5,7 @@
 
     <!-- BOTON NUEVO PRODUCTO -->
     <button class="btn btn-success mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target="#modalCrear">
-        + Nuevo Producto
+        + Nuevo Empleado
     </button>
 
     <!-- TABLA DE PRODUCTOS -->
@@ -37,8 +37,14 @@
                         <td><?= htmlspecialchars($e['apellido']) ?></td>
                         <td><?= htmlspecialchars($e['email']) ?></td>
                         <td><?= htmlspecialchars($e['contraseña']) ?></td>
-                        <td><span class="badge bg-primary"><?= htmlspecialchars($e['rol_id']) ?></span></td>
-                        <td><span class="badge bg-success"><?= htmlspecialchars($e['estado']) ?></span></td>
+                        <td><span class="badge bg-primary"><?= htmlspecialchars($e['rol']) ?></span></td>
+                        <td>
+                            <?php if ($e['estado'] === 'activo'): ?>
+                                <span class="badge bg-success">activo</span>
+                            <?php else: ?>
+                                <span class="badge bg-danger">inactivo</span>
+                            <?php endif; ?>
+                        </td>
                         <td><?= htmlspecialchars($e['creacion']) ?></td>
                         <td><?= htmlspecialchars($e['actualizado']) ?></td>
                         <td class="d-flex gap-3">
@@ -78,11 +84,11 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Contraseña</label>
-                                            <input type="text" name="Contraseña" class="form-control" value="<?= htmlspecialchars($e['contraseña']) ?>" required>
+                                            <input type="password" name="contraseña" class="form-control" value="<?= htmlspecialchars($e['contraseña']) ?>" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="edit_rol_id" class="form-label">Rol ID<span class="text-danger">*</span></label>
-                                            <select class="form-select" id="edit_rol_id" name="rol_id" value="<?= htmlspecialchars($e['rol_id']) ?>" required>
+                                            <select class="form-select" id="edit_rol_id" name="rol_id" value="<?= htmlspecialchars($e['rol']) ?>" required>
                                                 <option value="1">Jefe</option>
                                                 <option value="2">Empleado</option>
                                             </select>
@@ -113,7 +119,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <input type="hidden" name="id" value="<?= $e['id'] ?>">
-                                        ¿Seguro que deseas eliminar a: <strong><?= htmlspecialchars($p['nombre']) ?></strong>?
+                                        ¿Seguro que deseas eliminar a: <strong><?= htmlspecialchars($e['nombre']) ?></strong>?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
@@ -130,48 +136,60 @@
     </div>
 </div>
 
-<!-- MODAL CREAR NUEVO EMPLEADO -->
-<div class="modal fade" id="modalCrear" tabindex="-1" aria-hidden="true">
+<!-- Modal para Nuevo Empleado -->
+<div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrear" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="index.php?page=gestion_empleados" method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title">Nuevo Empleado</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCrear">Nuevo Empleado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formNuevoEmpleado" action="index.php?page=gestion_empleados" method="POST">
                     <div class="mb-3">
-                        <label class="form-label">Animal</label>
-                        <input type="text" name="animal" class="form-control" required>
+                        <label for="dni" class="form-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" required>
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Presentacion</label>
-                        <input type="text" name="presentacion" class="form-control" required>
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Descripción</label>
-                        <textarea name="descripcion" class="form-control"></textarea>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Precio</label>
-                        <input type="number" step="0.01" name="precio" class="form-control" required>
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" name="contraseña" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Stock</label>
-                        <input type="number" name="stock" class="form-control" required>
+                        <label for="rol" class="form-label">Rol</label>
+                        <select class="form-select" id="rol" name="rol_id" required>
+                            <option value="1">Gerente</option>
+                            <option value="2">Empleado</option>
+                        </select>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" name="create" class="btn btn-primary">Guardar</button>
-                </div>
-            </form>
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado:</label>
+                        <select class="form-select" name="estado" id="estado">
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" name="create" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+
 <?php Toast::show() ?>
 <?php require __DIR__ . '/layouts/footer.php' ?>

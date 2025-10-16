@@ -8,16 +8,15 @@ class EmpleadoModel {
         $this->pdo = $pdo; // RECIBE LA CONEXION PDO DESDE AFUERA
     }
 
-    // OBTENEMOS TODO LOS EMPLEADOS
+    // OBTENEMOS TODO LOS EMPLEADOS TIENE UN INNER JOIN PARA MOSTRAR LOS ROLES EN LAS TABLAS
     public function getAll() {
-        // $stmt = $this->pdo->query("SELECT * FROM productos ORDER BY ID DESC");
-        $stmt = $this->pdo->query("SELECT ID as id, DNI as dni, Nombre as nombre, Apellido as apellido, Email as email, Contraseña as contraseña, Rol_ID as rol_id, Estado as estado, Sesion_activa as sesion_activa, Ultimo_acceso as ultimo_acceso, Creado as creacion, Actualizado as actualizado FROM empleados ORDER BY id ASC");
+        $stmt = $this->pdo->query("SELECT empleados.ID as id, empleados.DNI as dni, empleados.Nombre as nombre, empleados.Apellido as apellido, empleados.Email as email, empleados.Contraseña as contraseña, empleados.Rol_ID as rol_id, roles.Nombre as rol, empleados.Estado as estado, empleados.Sesion_activa as sesion_activa, empleados.Ultimo_acceso as ultimo_acceso, empleados.Creado as creacion, empleados.Actualizado as actualizado FROM empleados INNER JOIN roles ON empleados.Rol_ID = roles.ID ORDER BY empleados.ID ASC");
         return $stmt->fetchAll();
     }
 
-    // OBETENEMOS UN PRODUCTO POR ID
+    // OBTENEMOS UN EMPLEADO POR ID TIENE UN INNER JOIN PARA MOSTRA LOS ROLES NE LAS TABLAS
     public function getById($id) {
-        $stmt = $this->pdo->prepare("SELECT ID as id, DNI as dni, Nombre as nombre, Apellido as apellido, Email as email, Contraseña as contraseña, Rol_ID as rol_id, Estado as estado, Sesion_activa as sesion_activa, Ultimo_acceso as ultimo_acceso FROM empleados WHERE id = ?");
+        $stmt = $this->pdo->prepare("SELECT empleados.ID as id, empleados.DNI as dni, empleados.Nombre as nombre, empleados.Apellido as apellido, empleados.Email as email, empleados.Contraseña as contraseña, empleados.Rol_ID as rol_id, roles.Nombre as rol, empleados.Estado as estado, empleados.Sesion_activa as sesion_activa, empleados.Ultimo_acceso as ultimo_acceso FROM empleados INNER JOIN roles ON empleados.Rol_ID = roles.ID WHERE empleados.ID = ?");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
@@ -34,9 +33,9 @@ class EmpleadoModel {
         return $stmt->execute([$dni, $nombre, $apellido, $email, $contraseña, $rol_id, $estado, $id]);
     }
 
-    // ELIMINAMOS PRODUCTO
+    // ELIMINAMOS EMPLEADO
     public function delete($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM empleados WHERE id=?");
+        $stmt = $this->pdo->prepare("DELETE FROM empleados WHERE ID=?");
         return $stmt->execute([$id]);
     }
 }

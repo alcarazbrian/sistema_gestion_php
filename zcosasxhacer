@@ -1,9 +1,4 @@
-falta por hacer:
-- el login discrimine roles
-- cada rol con sus vistas
+falta por hacer: actualizado 16/10/2025
+
 - validaciones en formulario: si el campo es es Nombre que solo acepte teclas que sean Letras, y asi con todos
-- seguridad en la parte de contraseñas deberian ser hasheadas
-- terminar la vista empleados (BRIAN)
-- termnar la vista del dashboard con datos reales en los empleados inactivo y activos
-- en el dashboard que sea dinamico y no hay que recargar la pagina para ver nuevos resultados
-- y no se si me estoy olvidando de algo
+

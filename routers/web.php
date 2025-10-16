@@ -4,7 +4,7 @@
 $page = $_GET['page'] ?? 'login';
 
 // Router principal
-switch($page) {
+switch ($page) {
 
     case 'gerente':
         // Verificar que sea gerente (opcional)
@@ -15,6 +15,16 @@ switch($page) {
 
         require_once 'config.php';
         require_once 'database.php';
+
+        // Incluye el modelo de empleados
+        require_once 'models/empleado.model.php';
+
+        // Crea una instancia del modelo
+        $empleadoModel = new EmpleadoModel($pdo);
+
+        // Obtén todos los empleados
+        $empleados = $empleadoModel->getAll();
+
         // require_once 'controllers/empleado.controller.php';
         // require_once 'models/empleado.model.php';
 
@@ -23,6 +33,10 @@ switch($page) {
 
         // $empleadoModel = new EmpleadoModel($pdo);
         // $empleados = $empleadoModel->getAll();
+
+        // CONTAR TODOS LOS EMPLEADOS (ACTIVOS E INACTIVOS)
+        $stmt = $pdo->query("SELECT COUNT(*) as total_empleados FROM empleados");
+        $total_empleados = $stmt->fetch()['total_empleados'];
 
         // CONTAR LOS PRODUYCTOS TOTALES QUE TENGO ACTUALMETE
         $stmt = $pdo->query("SELECT COUNT(*) as total_productos FROM productos");
@@ -35,6 +49,31 @@ switch($page) {
         // CONTAR EMPLEADOS INACTIVOS SIN ACCESO AL SISTEMA POR EL MOTIVO QUE SEA
         $stmt = $pdo->query("SELECT COUNT(*) as total_empleados_inactivos FROM empleados WHERE estado = 'inactivo'");
         $total_empleados_inactivos = $stmt->fetch()['total_empleados_inactivos'];
+
+
+        // Si es petición AJAX, solo devolver los datos (JSON)
+        if (isset($_GET['ajax']) && $_GET['ajax'] === 'stats') {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'empleados' => $total_empleados,
+                'activos' => $total_empleados_activos,
+                'inactivos' => $total_empleados_inactivos,
+                'productos' => $total_productos
+            ]);
+            exit;
+        }
+
+        // CLASIFICACION DE EMPLEADOS PARA TENERLOS POR SEPARADOS EN TABLA ACTIVOS E INACTIVOS
+
+        // Clasificar empleados activos
+        $empleados_activos = array_filter($empleados, function ($e) {
+            return isset($e['estado']) && strtolower($e['estado']) === 'activo';
+        });
+
+        // Clasificar empleados inactivos
+        $empleados_inactivos = array_filter($empleados, function ($e) {
+            return isset($e['estado']) && strtolower($e['estado']) === 'inactivo';
+        });
 
         //include 'views/layouts/header.php';
         include 'views/gerente.view.php';
@@ -106,4 +145,3 @@ switch($page) {
         header('Location: index.php?page=login');
         exit;
 }
-?>

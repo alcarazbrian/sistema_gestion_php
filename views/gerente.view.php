@@ -38,9 +38,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h6 class="card-title">Empleados Activos</h6>
-                            <h3 class="mb-0"><?php echo $total_empleados_activos ?? 0; ?></h3>
-                            <small class="opacity-75">Con acceso al sistema</small>
+                            <h6 class="card-title">Total Empleados</h6>
+                            <h3 class="mb-0"><?php echo $total_empleados ?? 0; ?></h3>
+                            <small class="opacity-75">En todo el sistema</small>
                         </div>
                         <div class="align-self-center">
                             <i class="bi bi-people-fill fs-1 opacity-75"></i>
@@ -50,6 +50,23 @@
             </div>
         </div>
         
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="card-title">Empleados Activos</h6>
+                            <h3 class="mb-0"><?php echo $total_empleados_activos ?? 0; ?></h3>
+                            <small class="opacity-75">Con acceso al sistema</small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-person-check-fill fs-1 opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-3 mb-3">
             <div class="card bg-warning text-white h-100">
                 <div class="card-body">
@@ -68,30 +85,13 @@
         </div>
         
         <div class="col-md-3 mb-3">
-            <div class="card bg-success text-white h-100">
+            <div class="card bg-info text-white h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
                             <h6 class="card-title">Total Productos</h6>
                             <h3 class="mb-0"><?php echo $total_productos ?? 0; ?></h3>
                             <small class="opacity-75">En inventario</small>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="bi bi-box-seam-fill fs-1 opacity-75"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3 mb-3">
-            <div class="card bg-info text-white h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h6 class="card-title">Accesos Hoy</h6>
-                            <h3 class="mb-0">8</h3>
-                            <small class="opacity-75">Empleados conectados</small>
                         </div>
                         <div class="align-self-center">
                             <i class="bi bi-graph-up-arrow fs-1 opacity-75"></i>
@@ -196,7 +196,8 @@
             <div class="modal-body">
                 <div class="alert alert-info">
                     <i class="bi bi-info-circle me-2"></i>
-                    Empleados con estado activo y acceso habilitado al sistema. La columna "Historial" muestra el registro de sesiones.
+                    Empleados con estado activo y acceso habilitado al sistema. 
+                    <!-- La columna "Historial" muestra el registro de sesiones. -->
                 </div>
                 
                 <div class="table-responsive">
@@ -207,41 +208,28 @@
                                 <th>Nombre</th>
                                 <th>Email</th>
                                 <th>Rol</th>
+                                <th>Estado</th>
                                 <th>Sesión Activa</th>
-                                <th>Último Acceso</th>
-                                <th>Historial</th>
+                                <!-- <th>Historial</th> -->
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Solo empleados activos -->
-                            <tr>
-                                <td>1</td>
-                                <td>Juan Pérez</td>
-                                <td>juan@empresa.com</td>
-                                <td><span class="badge bg-primary">Empleado</span></td>
-                                <td><i class="bi bi-circle-fill text-success" title="En línea"></i> En línea</td>
-                                <td>2024-03-15 14:30</td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modalHistorialSesiones" 
-                                            data-empleado-id="1" data-empleado-nombre="Juan Pérez">
-                                        <i class="bi bi-clock-history me-1"></i>Ver Historial
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>María García</td>
-                                <td>maria@empresa.com</td>
-                                <td><span class="badge bg-success">Jefe</span></td>
-                                <td><i class="bi bi-circle-fill text-danger" title="Desconectado"></i> Desconectado</td>
-                                <td>2024-03-14 18:00</td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modalHistorialSesiones"
-                                            data-empleado-id="2" data-empleado-nombre="María García">
-                                        <i class="bi bi-clock-history me-1"></i>Ver Historial
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php foreach ($empleados_activos as $empleado): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($empleado['id']) ?></td>
+                                    <td><?= htmlspecialchars($empleado['nombre'] . ' ' . $empleado['apellido']) ?></td>
+                                    <td><?= htmlspecialchars($empleado['email']) ?></td>
+                                    <td><span class="badge bg-primary"><?= htmlspecialchars($empleado['rol']) ?></span></td>
+                                    <td><span class="badge bg-success">Activo</span></td>
+                                    <td><?= htmlspecialchars($empleado['ultimo_acceso'] ?? 'N/A') ?></td>
+                                    <!-- <td>
+                                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modalHistorialSesiones"
+                                                data-empleado-id="<?= $empleado['id'] ?>" data-empleado-nombre="<?= htmlspecialchars($empleado['nombre']) ?>">
+                                            <i class="bi bi-clock-history me-1"></i>Ver Historial
+                                        </button>
+                                    </td> -->
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -277,39 +265,22 @@
                                 <th>Nombre</th>
                                 <th>Email</th>
                                 <th>Rol</th>
+                                <th>Estado</th>
                                 <th>Fecha Inactivación</th>
-                                <th>Último Acceso</th>
-                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Solo empleados inactivos -->
-                            <tr>
-                                <td>3</td>
-                                <td>Pedro López</td>
-                                <td>pedro@empresa.com</td>
-                                <td><span class="badge bg-primary">Empleado</span></td>
-                                <td>2024-03-12</td>
-                                <td>2024-03-10 16:45</td>
-                                <td>
-                                    <button class="btn btn-sm btn-success" title="Reactivar empleado">
-                                        <i class="bi bi-person-check me-1"></i>Reactivar
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Ana Martínez</td>
-                                <td>ana@empresa.com</td>
-                                <td><span class="badge bg-primary">Empleado</span></td>
-                                <td>2024-03-01</td>
-                                <td>2024-02-28 17:30</td>
-                                <td>
-                                    <button class="btn btn-sm btn-success" title="Reactivar empleado">
-                                        <i class="bi bi-person-check me-1"></i>Reactivar
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php foreach ($empleados_inactivos as $empleado): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($empleado['id']) ?></td>
+                                    <td><?= htmlspecialchars($empleado['nombre'] . ' ' . $empleado['apellido']) ?></td>
+                                    <td><?= htmlspecialchars($empleado['email']) ?></td>
+                                    <td><span class="badge bg-primary"><?= htmlspecialchars($empleado['rol']) ?></span></td>
+                                    <td><span class="badge bg-danger">Inactivo</span></td>
+                                    <td><?= htmlspecialchars($empleado['fecha_inactivacion'] ?? 'N/A') ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -396,5 +367,38 @@
 
 <!-- Bootstrap 5 JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<!-- ACTUALIZA LOS DATOS DEL DASHBOARD EN TIEMPO REAL (ESTO ESTA RELACIONADO CON ROUTES/WEB.PHP - GERENTE) -->
+<script>
+function actualizarStats() {
+    console.log('🔄 Actualizando estadísticas...');
+    
+    fetch('index.php?page=gerente&ajax=stats')
+        .then(response => response.json())
+        .then(data => {
+            console.log('✅ Datos recibidos:', data);
+            
+            // Actualizar todos los empleados
+            document.querySelector('.bg-primary h3').textContent = data.empleados;
+
+            // Actualizar empleados activos
+            document.querySelector('.bg-success h3').textContent = data.activos;
+            
+            // Actualizar empleados inactivos
+            document.querySelector('.bg-warning h3').textContent = data.inactivos;
+            
+            // Actualizar productos
+            document.querySelector('.bg-info h3').textContent = data.productos;
+        })
+        .catch(error => {
+            console.error('❌ Error:', error);
+        });
+}
+
+// Actualizar cada 5 segundos
+setInterval(actualizarStats, 5000);
+
+console.log('✅ Sistema de actualización automática cargado');
+</script>
 
 </body>

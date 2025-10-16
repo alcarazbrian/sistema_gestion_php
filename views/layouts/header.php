@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,35 +20,40 @@
 
     <!-- NOTIFICAION TOAST -->
     <style>
-    /* Quita la imagen que viene por defecto*/
-    #toast-container > .toast {
-    background-image: none !important;
-    }
-    /* Quitar espaciado del icono */
-    #toast-container .toast {
-        padding: 15px 15px 15px 15px !important;
-    }
-    /* Ordena el datatable de Datatables.net - Se lo ponen y queda feo */
-    .row > * {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-    /* Mediaqueries */
-    /* Sobrescribe la fila de controles en pantallas pequeñas */
-    @media (max-width: 767px) {
-    div.dt-container > div.row {
-        justify-content: center !important; /* centra todos los elementos */
-        flex-wrap: wrap; /* para que se ajusten si hay varios elementos */
-    }
-
-    div.dt-container .dataTables_filter {
-        text-align: center !important; /* centra el input */
-        width: 100%; /* opcional, que ocupe todo el ancho */
+        /* Quita la imagen que viene por defecto*/
+        #toast-container>.toast {
+            background-image: none !important;
         }
-    }
 
-    /* NAVBAR */
-    
+        /* Quitar espaciado del icono */
+        #toast-container .toast {
+            padding: 15px 15px 15px 15px !important;
+        }
+
+        /* Ordena el datatable de Datatables.net - Se lo ponen y queda feo */
+        .row>* {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Mediaqueries */
+        /* Sobrescribe la fila de controles en pantallas pequeñas */
+        @media (max-width: 767px) {
+            div.dt-container>div.row {
+                justify-content: center !important;
+                /* centra todos los elementos */
+                flex-wrap: wrap;
+                /* para que se ajusten si hay varios elementos */
+            }
+
+            div.dt-container .dataTables_filter {
+                text-align: center !important;
+                /* centra el input */
+                width: 100%;
+                /* opcional, que ocupe todo el ancho */
+            }
+        }
+        /* NAVBAR */
     </style>
 </head>
 <!-- NAVBAR DINAMICO CAMBIA DEPENDIENDO DE QUIEN INICIE SESION -->
@@ -64,10 +70,10 @@ if (!isset($_SESSION['csrf_token'])) {
 
 // Variables seguras para el navbar
 $isLoggedIn = isset($_SESSION['usuario']) &&
-              !empty($_SESSION['usuario']) &&
-              isset($_SESSION['csrf_token']) &&
-              isset($_SESSION['session_id']) &&
-              $_SESSION['session_id'] === session_id();
+    !empty($_SESSION['usuario']) &&
+    isset($_SESSION['csrf_token']) &&
+    isset($_SESSION['session_id']) &&
+    $_SESSION['session_id'] === session_id();
 
 $nombreUsuario = $isLoggedIn ? ($_SESSION['nombre'] ?? 'Usuario') : 'Invitado';
 $rolesValidos = ['jefe', 'empleado'];
@@ -111,7 +117,7 @@ $iconos = [
 
         <!-- Botón para móvil -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -156,7 +162,7 @@ $iconos = [
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                             <input type="hidden" name="action" value="logout">
                             <button type="submit" class="nav-link btn btn-outline-danger border-0"
-                                    name="logout_submit">
+                                name="logout_submit">
                                 <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
                             </button>
                         </form>
@@ -173,5 +179,5 @@ $iconos = [
         </div>
     </div>
 </nav>
-<body>
 
+<body>
