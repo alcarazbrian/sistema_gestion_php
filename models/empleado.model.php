@@ -10,6 +10,19 @@ class EmpleadoModel
         $this->pdo = $pdo;
     }
 
+    // VERIFICAR SI EL DNI YA EXISTE
+    public function dniExists($dni, $excludeId = null)
+    {
+        if ($excludeId) {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM empleados WHERE DNI = ? AND ID != ?");
+            $stmt->execute([$dni, $excludeId]);
+        } else {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM empleados WHERE DNI = ?");
+            $stmt->execute([$dni]);
+        }
+        return $stmt->fetchColumn() > 0;
+    }
+
     // OBTENEMOS TODO LOS EMPLEADOS TIENE UN INNER JOIN PARA MOSTRAR LOS ROLES EN LAS TABLAS
     public function getAll()
     {
@@ -28,6 +41,11 @@ class EmpleadoModel
     // CREAMOS NUEVO EMPLEADO CON CONTRASEÑA HASHEADAS
     public function create($dni, $nombre, $apellido, $email, $contraseña, $rol_id, $estado)
     {
+        // VERIFICAR SI EL DNI YA EXISTE
+        if ($this->dniExists($dni)) {
+            return false; // DNI ya existe
+        }
+
         // Hashear la contraseña antes de guardar
         $password_hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
@@ -38,6 +56,11 @@ class EmpleadoModel
     // ACTUALIZAMOS DATOS DEL EMPLEADO CON CONTRASEÑA HASHEADAS
     public function update($id, $dni, $nombre, $apellido, $email, $contraseña, $rol_id, $estado)
     {
+        // VERIFICAR SI EL DNI YA EXISTE EN OTRO EMPLEADO
+        if ($this->dniExists($dni, $id)) {
+            return false; // DNI ya existe en otro empleado
+        }
+
         // Verificar si la contraseña parece ser un hash (empieza con $2y$)
         if (!empty($contraseña) && substr($contraseña, 0, 4) !== '$2y$') {
             // Es una contraseña nueva en texto plano - hashearla
@@ -58,5 +81,3 @@ class EmpleadoModel
         return $stmt->execute([$id]);
     }
 }
-
-//deberia usar try/catch

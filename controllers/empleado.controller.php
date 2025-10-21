@@ -34,7 +34,8 @@ class EmpleadoController {
         if($result) {
             Toast::success('EMPLEADO CREADO EXITOSAMENTE'); //VERDE
         } else {
-            Toast::info('⚠️ERROR AL CREAR EMPLEADO'); //AZUL
+            // ✅ CAMBIÉ ESTE MENSAJE PARA DNI DUPLICADO
+            Toast::error('❌ ERROR: El DNI ya existe en el sistema'); //ROJO
         }
 
         header("Location: index.php?page=gestion_empleados"); // REDIRIGE A ...
@@ -58,7 +59,8 @@ class EmpleadoController {
         if($result) {
             Toast::warning('EMPLEADO ACTUALIZADO CORRECTAMENTE'); //AMARILLO
         } else {
-            Toast::info('⚠️ERROR AL ACTUALIZAR EMPLEADO'); //AZUL
+            // ✅ CAMBIÉ ESTE MENSAJE PARA DNI DUPLICADO
+            Toast::error('❌ ERROR: El DNI ya existe en otro empleado'); //ROJO
         }
 
         header("Location: index.php?page=gestion_empleados"); // REDIRIGE A ...
