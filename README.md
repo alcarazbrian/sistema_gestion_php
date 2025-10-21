@@ -151,3 +151,22 @@ http://localhost/genesys/
 * ✅ Bootstrap 5 y DataTables
 * ✅ Control de Versiones con Git
 * ✅ Metodología Kanban
+
+## 🐛 Solución de Problemas
+
+### Error de Conexión a Base de Datos
+* Verificar que MySQL esté ejecutándose en XAMPP
+* Revisar credenciales en `config.php`
+* Asegurar que la base de datos fue importada correctamente
+
+### Página en Blanco
+* Verificar que Apache esté corriendo
+* Revisar logs de error en `C:\xampp\apache\logs\error.log`
+* Comprobar permisos de archivos
+
+### Tablas No Se Muestran
+* Limpiar caché del navegador
+* Verificar consola del navegador (F12) para errores JavaScript
+* Comprobar que las rutas de DataTables sean correctas
+
+⭐ **Si este proyecto te fue útil, no olvides darle una estrella!**
