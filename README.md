@@ -1,168 +1,153 @@
-#  Genesys - Sistema de Gestión
+# 🏢 Genesys - Sistema de Gestión Integral
 
-Sistema de gestión integral para control de productos de mascotas y administración de empleados, desarrollado con arquitectura MVC y tecnologías web modernas.
+Sistema de gestión empresarial desarrollado para control de productos de mascotas y administración de empleados, implementado con arquitectura MVC y tecnologías web modernas como trabajo académico para la materia Programación de Sistemas.
 
-## 📋 Descripción
+## 📚 Información Académica
 
-Genesys es un sistema de gestión empresarial que permite administrar de manera eficiente el inventario de productos para mascotas y la información del personal. El sistema cuenta con diferentes niveles de acceso según el rol del usuario, optimizando las operaciones diarias de la empresa.
+**Trabajo Práctico - Materia: Programación de Sistemas**
 
-### Funcionalidades Principales
+Sistema completo desarrollado con metodologías ágiles y mejores prácticas de desarrollo web.
 
-- **Gestión de Productos**: CRUD completo para productos de mascotas con control de entrada y salida de inventario
-- **Gestión de Empleados**: Administración completa de la información del personal
-- **Dashboard Gerencial**: Panel con métricas y datos relevantes del negocio
-- **DataTables**: Tablas interactivas con búsqueda, paginación y ordenamiento
-- **Exportación de Datos**: Descarga de información en formatos PDF y Excel
-- **Sistema de Roles**: Diferenciación entre empleado y gerente (en desarrollo)
+## 🌟 Características Principales
 
-## 🛠️ Tecnologías Utilizadas
+### Módulos del Sistema
 
-### Backend
-- **PHP** - Lenguaje de programación del lado del servidor
-- **PDO (PHP Data Objects)** - Capa de abstracción para acceso a base de datos
-- **MySQL** - Sistema de gestión de base de datos
+| Módulo | Funcionalidades | Estado |
+|--------|----------------|--------|
+| 📦 Gestión de Productos | CRUD completo, Control de inventario, Entrada/Salida | ✅ Completo |
+| 👥 Gestión de Empleados | CRUD completo, Estados (Activo/Inactivo), Roles | ✅ Completo |
+| 📊 Dashboard Gerencial | Métricas en tiempo real, Estadísticas del negocio | ✅ Completo |
+| 🔐 Sistema de Roles | Empleado vs Gerente, Control de acceso | ✅ Completo |
+| 📤 Exportación de Datos | PDF, Excel, Reportes personalizados | ✅ Completo |
+| 👀 Gestión de Estados | Empleados Activos/Inactivos con fechas | ✅ Completo |
 
-### Frontend
-- **Bootstrap 5** - Framework CSS para diseño responsive
-- **DataTables** - Plugin jQuery para tablas interactivas
-- **HTML5 & CSS3** - Estructura y estilos
+## 🛠 Stack Tecnológico
 
-### Arquitectura
-- **Patrón MVC** (Model-View-Controller) - Separación de lógica de negocio
-- **Sistema de Rutas** - Enrutamiento mediante `routes/web.php`
-- **POO** (Programación Orientada a Objetos) - Código estructurado y reutilizable
+### Backend & Base de Datos
 
-## 📊 Metodologías y Herramientas
+| Tecnología | Versión | Propósito |
+|------------|---------|-----------|
+| PHP | 7.4+ | Lenguaje del servidor con POO |
+| MySQL | 5.7+ | Base de datos relacional |
+| PDO | - | Abstraction para base de datos |
+| Apache | 2.4+ | Servidor web |
 
-### Metodología de Desarrollo
-- **Kanban** - Gestión ágil de tareas y flujo de trabajo
+### Frontend & UI/UX
 
-### Herramientas
-- **Visual Studio Code** - Editor de código
-- **Git** - Control de versiones
-- **GitHub** - Repositorio remoto y colaboración
-- **Trello** - Gestión de proyecto y seguimiento de tareas
-- **XAMPP** - Entorno de desarrollo local (Apache + MySQL + PHP)
-
+| Tecnología | Versión | Propósito |
+|------------|---------|-----------|
+| Bootstrap 5 | 5.3+ | Framework CSS responsive |
+| DataTables | 1.13+ | Tablas interactivas |
+| JavaScript | ES6+ | Interactividad del cliente |
+| HTML5 | - | Estructura semántica |
+| CSS3 | - | Estilos y diseño |
+| Toast Notifications | - | Sistema de alertas y feedback |
 
 ## 🚀 Instalación y Configuración
 
-### Requisitos Previos
+### Prerrequisitos
 
-- **XAMPP** (incluye PHP y MySQL)
-- Navegador web moderno
-- Git (opcional, para clonar el repositorio)
+* ✅ XAMPP instalado (Apache + MySQL + PHP)
+* ✅ Navegador web moderno
 
-### Pasos de Instalación
+### Paso a Paso: Configuración con XAMPP
 
-1. **Descargar e instalar XAMPP**
-   ```
-   Descarga XAMPP desde: https://www.apachefriends.org/
-   ```
+#### 1. Descargar e Instalar XAMPP
+```bash
+# Descargar desde: https://www.apachefriends.org/
+```
 
-2. **Clonar o descargar el proyecto**
-   ```bash
-   git clone [URL-del-repositorio]
-   ```
-   O descarga el ZIP y extrae en la carpeta `htdocs` de XAMPP
+#### 2. Descargar el Proyecto
 
-3. **Mover el proyecto a htdocs**
-   ```
-   Copiar la carpeta del proyecto a: C:/xampp/htdocs/genesys
-   ```
+* Descargar el ZIP del repositorio
+* Extraer en la carpeta `htdocs` de XAMPP
 
-4. **Iniciar servicios de XAMPP**
-   - Abre el Panel de Control de XAMPP
-   - Inicia los módulos **Apache** y **MySQL**
+#### 3. Ubicar el Proyecto
+```text
+# Mover la carpeta del proyecto a:
+C:\xampp\htdocs\genesys\
+```
 
-5. **Importar la Base de Datos**
-   - Abre tu navegador y accede a: `http://localhost/phpmyadmin`
-   - Crea una nueva base de datos (si es necesario)
-   - Selecciona la base de datos creada
-   - Ve a la pestaña **Importar**
-   - Selecciona el archivo `sistema_gestion.sql` ubicado en la raíz del proyecto
-   - Haz clic en **Continuar** para importar
+#### 4. Iniciar Servicios XAMPP
 
-6. **Acceder al Sistema**
-   ```
-   Abre tu navegador y visita: http://localhost/genesys
-   ```
+* Abrir XAMPP Control Panel
+* Iniciar Apache y MySQL
+* Verificar estado VERDE en ambos servicios
 
-## Algunas Imagenes
-![Imagen1](public/img/1.png)
-![Imagen2](public/img/2.png)
-![Imagen3](public/img/3.png)
-![Imagen4](public/img/4.png)
-![Imagen5](public/img/5.png)
+#### 5. Importar Base de Datos ⚠️ IMPORTANTE
 
-## 📊 Dashboard Gerencial
+1. Abrir: `http://localhost/phpmyadmin`
+2. Ir a pestaña "Importar"
+3. Seleccionar: `sistema_gestion.sql` (en la raíz del proyecto)
+4. Clic en "Continuar"
 
-El dashboard proporciona una vista general del estado del negocio con las siguientes métricas:
+✅ La base de datos se crea automáticamente con todas las tablas
 
-- **Total de Empleados**: Cantidad total de personal registrado
-- **Empleados Activos**: Personal en estado activo
-- **Empleados Inactivos**: Personal en estado inactivo
-- **Total de Productos**: Inventario total de productos
+#### 6. Configurar Archivos de Conexión
 
-## 👥 Roles y Permisos
+**📄 config.php (en raíz del proyecto)**
+```php
+<?php
+// Configuración general del sistema
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'sistema_gestion');
+define('DB_USER', 'root');
+define('DB_PASS', '');  // Vacío por defecto XAMPP
+?>
+```
 
-### Empleado
-- Gestión completa de productos (entrada/salida de inventario)
-- Visualización de inventario
-- Exportación de datos
+**📁 config/database.php**
+```php
+<?php
+require_once __DIR__ . '/../config.php';
 
-### Gerente
-- Acceso completo a todas las funcionalidades
-- Gestión de empleados
-- Visualización del dashboard gerencial
-- Gestión de productos
-- Reportes y estadísticas
+$host = DB_HOST;
+$dbname = DB_NAME;
+$username = DB_USER;
+$password = DB_PASS;
 
-> **Nota**: El sistema de autenticación y login está actualmente en desarrollo
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Error de conexión: " . $e->getMessage());
+}
+?>
+```
 
-## 🔧 Configuración
+#### 7. Acceder al Sistema
+```text
+http://localhost/genesys/
+```
 
-Las credenciales de la base de datos ya están configuradas en el proyecto. Solo es necesario:
+## 👥 Sistema de Roles
 
-1. Importar el archivo `sistema_gestion.sql`
-2. Verificar que los servicios de XAMPP estén activos
-3. Acceder al sistema desde el navegador
+### 🏢 Gerente
 
-## 📝 Características Técnicas
+* Gestión completa de empleados
+* Dashboard con métricas
+* Control de productos
+* Exportación de reportes
 
-### DataTables
-Todas las tablas del sistema incluyen:
-- 🔍 Búsqueda en tiempo real
-- 📄 Paginación automática
-- ⬆️⬇️ Ordenamiento por columnas
-- 📥 Exportación a PDF
-- 📊 Exportación a Excel
+### 👤 Empleado
 
-### Seguridad
-- Preparación de consultas con PDO (prevención de SQL Injection)
-- Arquitectura MVC para separación de responsabilidades
-- Validaciones en servidor
+* Gestión de productos
+* Visualización de inventario
+* Exportación de datos
 
-## 🐛 Solución de Problemas
+## 🎨 Capturas del Sistema
 
-### Error de conexión a la base de datos
-- Verifica que MySQL esté corriendo en XAMPP
-- Confirma que importaste el archivo `sistema_gestion.sql`
-- Revisa las credenciales en el archivo de configuración
+![Captura 1](public/img/1.png)
+![Captura 2](public/img/2.png)
+![Captura 3](public/img/3.png)
+![Captura 4](public/img/4.png)
+![Captura 5](public/img/5.png)
 
-### Página en blanco
-- Verifica que Apache esté iniciado
-- Revisa la ruta del proyecto en htdocs
-- Comprueba los logs de error de PHP
+## 🎓 Objetivos Académicos
 
-### DataTables no funcionan
-- Verifica la conexión a internet (CDN de librerías)
-- Revisa la consola del navegador para errores JavaScript
-
-## 📄 Licencia
-
-Este proyecto es de uso educativo y privado.
-
----
-
-**Desarrollado con ❤️ usando PHP, MySQL y Bootstrap 5**
+* ✅ Arquitectura MVC
+* ✅ Programación Orientada a Objetos
+* ✅ MySQL y PDO
+* ✅ Bootstrap 5 y DataTables
+* ✅ Control de Versiones con Git
+* ✅ Metodología Kanban

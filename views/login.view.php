@@ -41,7 +41,7 @@
                     <?php endif; ?>
 
                     <!-- Formulario de login -->
-                    <form id="loginForm" action="controllers/login_controller.php" method="POST">
+                    <form id="loginForm" action="index.php?page=login" method="POST">
                         <!-- Campo Usuario -->
                         <div class="mb-3">
                             <label for="usuario" class="form-label">
@@ -134,7 +134,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="forgotPasswordForm" action="controllers/forgot_password_controller.php" method="POST">
+                <form id="forgotPasswordForm" action="#" method="POST">
                     <div class="mb-3">
                         <label for="email_recuperacion" class="form-label">Correo Electrónico</label>
                         <input type="email" 

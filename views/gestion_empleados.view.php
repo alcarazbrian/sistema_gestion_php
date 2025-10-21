@@ -80,23 +80,24 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <textarea name="email" class="form-control"><?= htmlspecialchars($e['email']) ?></textarea>
+                                            <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($e['email']) ?>" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Contraseña</label>
-                                            <input type="password" name="contraseña" class="form-control" value="<?= htmlspecialchars($e['contraseña']) ?>" required>
+                                            <input type="password" name="contraseña" class="form-control" placeholder="Dejar vacío para mantener la actual">
+                                            <small class="form-text text-muted">Solo completar si deseas cambiar la contraseña</small>
                                         </div>
                                         <div class="mb-3">
                                             <label for="edit_rol_id" class="form-label">Rol ID<span class="text-danger">*</span></label>
-                                            <select class="form-select" id="edit_rol_id" name="rol_id" value="<?= htmlspecialchars($e['rol']) ?>" required>
-                                                <option value="1">Jefe</option>
-                                                <option value="2">Empleado</option>
+                                            <select class="form-select" id="edit_rol_id" name="rol_id" required>
+                                                <option value="1" <?= $e['rol_id'] == 1 ? 'selected' : '' ?>>Gerente</option>
+                                                <option value="2" <?= $e['rol_id'] == 2 ? 'selected' : '' ?>>Empleado</option>
                                             </select>
                                         </div>
                                         <label for="edit_estado" class="form-label">Estado<span class="text-danger">*</span></label>
-                                        <select class="form-select" id="edit_estado" name="estado" value="<?= htmlspecialchars($e['estado']) ?>" required>
-                                            <option value="activo">Activo</option>
-                                            <option value="inactivo">Inactivo</option>
+                                        <select class="form-select" id="edit_estado" name="estado" required>
+                                            <option value="activo" <?= $e['estado'] === 'activo' ? 'selected' : '' ?>>Activo</option>
+                                            <option value="inactivo" <?= $e['estado'] === 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
                                         </select>
                                     </div>
                                     <div class="modal-footer">

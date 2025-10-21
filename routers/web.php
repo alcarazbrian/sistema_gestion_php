@@ -1,57 +1,41 @@
 <?php
-
 // Obtener la página solicitada
 $page = $_GET['page'] ?? 'login';
+
+// Incluir el middleware de autenticación
+require_once 'helpers/Auth.php';
 
 // Router principal
 switch ($page) {
 
     case 'gerente':
-        // Verificar que sea gerente (opcional)
-        // if (!isset($_SESSION['user_id'])) {
-        //     header('Location: index.php?page=login');
-        //     exit;
-        // }
+        // SOLO gerentes (rol 1)
+        Auth::checkRole(1);
 
         require_once 'config.php';
         require_once 'database.php';
-
-        // Incluye el modelo de empleados
         require_once 'models/empleado.model.php';
 
-        // Crea una instancia del modelo
         $empleadoModel = new EmpleadoModel($pdo);
-
-        // Obtén todos los empleados
         $empleados = $empleadoModel->getAll();
 
-        // require_once 'controllers/empleado.controller.php';
-        // require_once 'models/empleado.model.php';
-
-        // $controller = new EmpleadoController();
-        // $controller->handleRequest(); // Procesa las acciones del formulario
-
-        // $empleadoModel = new EmpleadoModel($pdo);
-        // $empleados = $empleadoModel->getAll();
-
-        // CONTAR TODOS LOS EMPLEADOS (ACTIVOS E INACTIVOS)
+        // CONTAR TODOS LOS EMPLEADOS
         $stmt = $pdo->query("SELECT COUNT(*) as total_empleados FROM empleados");
         $total_empleados = $stmt->fetch()['total_empleados'];
 
-        // CONTAR LOS PRODUYCTOS TOTALES QUE TENGO ACTUALMETE
+        // CONTAR PRODUCTOS TOTALES
         $stmt = $pdo->query("SELECT COUNT(*) as total_productos FROM productos");
         $total_productos = $stmt->fetch()['total_productos'];
 
-        // CONTAR EMPLEADOS ACTIVOS CON ACCESO AL SISTEMA
+        // CONTAR EMPLEADOS ACTIVOS
         $stmt = $pdo->query("SELECT COUNT(*) as total_empleados_activos FROM empleados WHERE Estado = 'activo'");
         $total_empleados_activos = $stmt->fetch()['total_empleados_activos'];
 
-        // CONTAR EMPLEADOS INACTIVOS SIN ACCESO AL SISTEMA POR EL MOTIVO QUE SEA
+        // CONTAR EMPLEADOS INACTIVOS
         $stmt = $pdo->query("SELECT COUNT(*) as total_empleados_inactivos FROM empleados WHERE estado = 'inactivo'");
         $total_empleados_inactivos = $stmt->fetch()['total_empleados_inactivos'];
 
-
-        // Si es petición AJAX, solo devolver los datos (JSON)
+        // AJAX stats
         if (isset($_GET['ajax']) && $_GET['ajax'] === 'stats') {
             header('Content-Type: application/json');
             echo json_encode([
@@ -63,85 +47,73 @@ switch ($page) {
             exit;
         }
 
-        // CLASIFICACION DE EMPLEADOS PARA TENERLOS POR SEPARADOS EN TABLA ACTIVOS E INACTIVOS
-
-        // Clasificar empleados activos
+        // Clasificar empleados
         $empleados_activos = array_filter($empleados, function ($e) {
             return isset($e['estado']) && strtolower($e['estado']) === 'activo';
         });
 
-        // Clasificar empleados inactivos
         $empleados_inactivos = array_filter($empleados, function ($e) {
             return isset($e['estado']) && strtolower($e['estado']) === 'inactivo';
         });
 
-        //include 'views/layouts/header.php';
         include 'views/gerente.view.php';
-        //include 'views/layouts/footer.php';
         break;
 
     case 'gestion_empleados':
-        // Cargar y ejecutar controlador de empleados
+        // SOLO gerentes (rol 1)
+        Auth::checkRole(1);
+
         require_once 'database.php';
         require_once 'controllers/empleado.controller.php';
 
         $controller = new EmpleadoController();
-        $controller->handleRequest(); // El controlador maneja su propia lógica
+        $controller->handleRequest();
         break;
 
     case 'productos':
-        // Cargar y ejecutar controlador de productos
+        // Cualquier usuario logueado (gerente o empleado)
+        Auth::checkAuth();
+
         require_once 'config.php';
         require_once 'database.php';
         require_once 'controllers/product.controller.php';
 
         $controller = new ProductoController();
-        $controller->handleRequest(); // El controlador maneja su propia lógica
+        $controller->handleRequest();
         break;
 
     case 'login':
-        // Procesar formulario de login si viene por POST
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario']) && isset($_POST['password'])) {
-            $usuario = trim($_POST['usuario']);
-            $password = $_POST['password'];
-
-            // Credenciales de prueba
-            if ($usuario === 'admin' && $password === '123456') {
-                $_SESSION['user_id'] = 1;
-                $_SESSION['usuario'] = $usuario;
-                $_SESSION['success_message'] = '¡Bienvenido al sistema Genesys!';
-                header('Location: index.php?page=productos');
-                exit;
+        // Si ya está logueado, redirigir según rol
+        if (Auth::isLoggedIn()) {
+            if ($_SESSION['user_rol_id'] == 1) {
+                header('Location: index.php?page=gerente');
             } else {
-                $_SESSION['error_message'] = 'Usuario o contraseña incorrectos';
-                header('Location: index.php?page=login');
-                exit;
+                header('Location: index.php?page=productos');
             }
+            exit;
         }
 
-        // Si ya está logueado, ir a productos
-        if (isset($_SESSION['user_id'])) {
-            header('Location: index.php?page=productos');
+        // Usar el AuthController para procesar login
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario']) && isset($_POST['password'])) {
+            require_once 'controllers/Auth.controller.php';
+            $authController = new AuthController();
+            $authController->login();
             exit;
         }
 
         // Mostrar formulario de login
-        //include 'views/layouts/header.php';
         include 'views/login.view.php';
-        //include 'views/layouts/footer.php';
         break;
 
     case 'logout':
-        // Cerrar sesión
-        session_destroy();
-        session_start();
-        $_SESSION['success_message'] = 'Sesión cerrada correctamente';
-        header('Location: index.php?page=login');
-        exit;
+        // Usar el AuthController para logout
+        require_once 'controllers/Auth.controller.php';
+        $authController = new AuthController();
+        $authController->logout();
         break;
 
     default:
-        // Por defecto, ir a productos
         header('Location: index.php?page=login');
         exit;
 }
+?>
