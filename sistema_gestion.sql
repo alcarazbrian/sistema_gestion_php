@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2025 a las 17:14:09
+-- Tiempo de generación: 22-10-2025 a las 06:09:51
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -47,15 +47,10 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`ID`, `DNI`, `Nombre`, `Apellido`, `Email`, `Contraseña`, `Rol_ID`, `Estado`, `Sesion_activa`, `Ultimo_acceso`, `Creado`, `Actualizado`) VALUES
-(1, '20222333', 'Homero', 'Simpson', 'homerosimpson@gmail.com', '', 1, 'activo', 0, NULL, '2025-09-21 02:14:13', '2025-09-22 03:33:11'),
-(3, '20444555', 'Juana', 'Molina', 'juanamolina@gmail.com', 'juanamolina', 2, 'activo', 0, NULL, '2025-09-21 02:18:05', '2025-09-21 02:18:05'),
-(4, '23120120', 'Manuel', 'Gonzales', 'manuelgonzales@gmail.com', 'manuelgonzales', 2, 'activo', 0, NULL, '2025-09-21 17:59:20', '2025-09-21 17:59:20'),
-(5, '20999999', 'Marco', 'Polo', 'marcopolo@gmail.com', 'marcopolo', 2, 'activo', 0, NULL, '2025-09-21 21:46:03', '2025-09-21 21:46:03'),
-(6, '10222333', 'Juana', 'De Arco', 'juanadearco@gmail.com', 'juanadearco', 2, 'activo', 0, NULL, '2025-09-21 22:27:04', '2025-09-21 22:27:04'),
-(7, '10333444', 'Lionel', 'Messi', 'liomessi@gmail.com', 'liomessi', 1, 'activo', 0, NULL, '2025-09-21 22:32:46', '2025-09-21 22:32:46'),
-(8, '45678990', 'Marco', 'Aurelio', 'marcoaurelio@gmail.com', 'marcoaurelio', 1, 'activo', 0, NULL, '2025-09-21 22:43:48', '2025-09-21 22:43:48'),
-(9, '00111222', 'Maria', 'Guadalupe', 'mariaguadalupe@gmail.com', 'maria', 2, 'activo', 0, NULL, '2025-09-22 00:12:17', '2025-09-22 00:12:17'),
-(10, '1010101010', 'Diego', 'Maradona', 'maradona@gmail.com', 'diego', 1, 'activo', 0, NULL, '2025-09-22 00:38:43', '2025-09-22 00:38:43');
+(15, '10000000', 'Diego', 'Maradona', 'diegote@email.com', '$2y$10$kT6ERjAy2kuaPDNn6EIVIuNY1bYrYr4Kwa2ns8tW718WMlReoKHPO', 1, 'activo', 0, '2025-10-21 23:24:31', '2025-10-21 20:02:05', '2025-10-21 23:24:31'),
+(21, '2000000', 'juan', 'perez', 'juan@email.com', '$2y$10$pDYWBy6.7x.GUMbNY6f4VO0AjYaORyJi.GJ7aHTBJg0.12aeHFZ4S', 2, 'inactivo', 0, '2025-10-21 22:11:11', '2025-10-21 22:10:13', '2025-10-21 22:26:08'),
+(22, '3000000', 'Lionel', 'Messi', 'messi@email.com', '$2y$10$3Gmc4gs5e/AtclV3L8Np8O2RkZDY22Vdo6RfolCMaYorCPXUOUlrO', 1, 'activo', 0, '2025-10-21 22:14:31', '2025-10-21 22:13:33', '2025-10-21 22:14:31'),
+(23, '4000000', 'Leo', 'Di Caprio', 'leo@email.com', '$2y$10$oMKGnhbQZml4Q7BmRedTaebuz19jgYDYaZwuzUcJWKiKOy350k5Ty', 2, 'activo', 0, '2025-10-21 23:03:41', '2025-10-21 23:03:29', '2025-10-21 23:03:41');
 
 -- --------------------------------------------------------
 
@@ -108,7 +103,8 @@ INSERT INTO `productos` (`ID`, `Animal`, `Nombre`, `Presentacion`, `Descripcion`
 (22, 'Perros', 'Purina DogChow Perros', '7,5KG', 'sabor pollo', 79000.00, 11, '2025-09-06 19:41:56', '2025-09-06 19:41:56', NULL, NULL),
 (23, 'Perros', 'Vital Can ', '15KG', 'holaaaaaaaa', 23450.00, 23, '2025-09-06 20:37:49', '2025-09-07 02:04:02', NULL, NULL),
 (26, 'Gatos', 'Purina DogChow Perros', '15KG', 'sdsdsadsaddsadsdsdasdsdAAAAAAA', 100000.00, 34, '2025-09-21 03:30:50', '2025-09-21 03:30:50', NULL, NULL),
-(27, 'Gatos', 'Vital Can Balanced', '7,5KG', 'sube el producto 13', 120000.00, 13, '2025-09-21 19:27:14', '2025-09-21 19:27:14', NULL, NULL);
+(27, 'Gatos', 'Vital Can Balanced', '7,5KG', 'sube el producto 13', 120000.00, 13, '2025-09-21 19:27:14', '2025-09-21 19:27:14', NULL, NULL),
+(28, 'Perro', 'DogMax', '15kg', 'alimentos balanceado', 100000.00, 25, '2025-10-21 20:22:36', '2025-10-21 20:22:36', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -216,7 +212,7 @@ ALTER TABLE `sesiones_empleados`
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -228,7 +224,7 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
