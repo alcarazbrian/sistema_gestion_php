@@ -120,6 +120,17 @@ try {
 http://localhost/genesys/
 ```
 
+## 🧪 Credenciales de Prueba
+
+Para probar el sistema con permisos de **Gerente**, utiliza estas credenciales:
+
+| Usuario | Contraseña |
+|---------|------------|
+| `diegote@email.com` | `diegote` |
+
+> 💡 **Nota:** Este usuario tiene acceso completo al dashboard gerencial y todas las funcionalidades del sistema.
+
+
 ## 👥 Sistema de Roles
 
 ### 🏢 Gerente
